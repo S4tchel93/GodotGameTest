@@ -1,6 +1,9 @@
 extends CanvasLayer
 
 signal start_game
+const RED 	= Color(0xFF,0,0,0xFF)
+const WHITE = Color(0xFF,0xFF,0xFF,0xFF)
+static var color_index = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,5 +43,18 @@ func _on_message_timer_timeout() -> void:
 func set_nuke_notif(nukeAvailable):
 	if(nukeAvailable):
 		$NukeNotif.show()
+		$NukePulseTimer.start()
 	else:
 		$NukeNotif.hide()
+		$NukePulseTimer.stop()
+
+func _on_nuke_pulse_timer_timeout() -> void:
+	var nuke_label_array = [WHITE, RED]
+	
+	#Change color of label
+	$NukeNotif.add_theme_color_override("font_color", nuke_label_array[color_index])
+	#Alternate color for next cycle
+	if(color_index == 1):
+		color_index = 0
+	else:
+		color_index = 1
