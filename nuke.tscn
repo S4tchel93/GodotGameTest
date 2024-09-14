@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dnud445js7sv4" path="res://art/pngegg.png" id="2_yyyae"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7t8g"]
-size = Vector2(490, 724)
+size = Vector2(1920, 1080)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m3mye"]
 atlas = ExtResource("2_yyyae")
@@ -150,11 +150,9 @@ animations = [{
 script = ExtResource("1_1j5wq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(235, 358)
 shape = SubResource("RectangleShape2D_l7t8g")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(262, 369)
 scale = Vector2(4.69505, 4.42233)
 sprite_frames = SubResource("SpriteFrames_cfab0")
 animation = &"boom"

@@ -65,12 +65,15 @@ wait_time = 2.0
 one_shot = true
 
 [node name="NukeNotif" type="Label" parent="."]
-offset_left = 322.0
-offset_top = 15.0
-offset_right = 451.0
-offset_bottom = 68.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 570.0
+offset_right = 769.0
+offset_bottom = 78.0
+grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_lghhm")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 64
 text = "NUKE"
 
 [node name="NukePulseTimer" type="Timer" parent="."]

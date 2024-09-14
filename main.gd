@@ -6,6 +6,9 @@ var score
 var difficulty = 0.0;
 var nukeAvailable = false
 
+const NUKE_AVAILABLE_SC0RE = 20
+const INCREASE_DIFFICULTY_SCORE = 15
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -24,7 +27,7 @@ func game_over() -> void:
 func new_game():
 	difficulty = 0
 	score = 0
-	$Player.start($StartPosition.position)
+	$Player.start()
 	$StartTimer.start()
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
@@ -59,12 +62,14 @@ func _on_mob_timer_timeout() -> void:
 func _on_score_timer_timeout() -> void:
 	score += 1
 	$HUD.update_score(score)
-	#Set difficulty (mob speed) up every 15 score points
-	if(score % 15 == 0 && score > 0):
+	
+	#Set difficulty (mob speed) up every INCREASE_DIFFICULTY_SCORE score points
+	if(score % INCREASE_DIFFICULTY_SCORE == 0 && score > 0):
 		difficulty += 100.0
 		print("current difficulty: " + str(difficulty/100.0))
-	#Set Nuke Available after player gets sums up a 20 score
-	if(score % 20 == 0 && score > 0 && nukeAvailable == false):
+		
+	#Set Nuke Available after player gets sums up a NUKE_AVAILABLE_SC0RE score
+	if(score % NUKE_AVAILABLE_SC0RE == 0 && score > 0 && nukeAvailable == false):
 		nukeAvailable = true
 		$HUD.set_nuke_notif(nukeAvailable)
 		print("Nuke Available: " + str(nukeAvailable))
