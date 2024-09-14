@@ -3,7 +3,10 @@ extends Area2D
 func _ready():
 	#instantiate a nuke
 	$CollisionShape2D.disabled = false
-	position = global_position
+	var screen_size = get_viewport_rect().size
+	#Set position as center of whatever resolution is configured
+	position.x = screen_size.x / 2 
+	position.y = screen_size.y / 2
 	$NukeDuration.start()
 	$AnimatedSprite2D.play()
 

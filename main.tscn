@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://main.gd" id="1_3c2qw"]
 [ext_resource type="PackedScene" uid="uid://dl456nch27lpc" path="res://player.tscn" id="1_q0je5"]
 [ext_resource type="PackedScene" uid="uid://c5nmq1cn7ksv2" path="res://mob.tscn" id="2_a10ha"]
-[ext_resource type="Texture2D" uid="uid://yj3sy8p0tubn" path="res://art/bg2.jpg" id="3_2mrqn"]
+[ext_resource type="Texture2D" uid="uid://d1esywoe82pxc" path="res://art/space 4k.jpeg" id="3_522ei"]
 [ext_resource type="PackedScene" uid="uid://4mry5tgklq7g" path="res://hud.tscn" id="4_gd1ba"]
 [ext_resource type="AudioStream" uid="uid://ctd44dxkpx7tn" path="res://art/gameover.wav" id="6_h5chq"]
 [ext_resource type="AudioStream" uid="uid://bfhxfcxwkoep8" path="res://art/NukeBeam.wav" id="7_ufye1"]
 
 [sub_resource type="Curve2D" id="Curve2D_6iyqv"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -2, 2, 0, 0, 0, 0, 482, 1, 0, 0, 0, 0, 481, 719, 0, 0, 0, 0, -4, 716, 0, 0, 0, 0, -2, 2)
+"points": PackedVector2Array(0, 0, 0, 0, -2, 2, 0, 0, 0, 0, 1920, -1, 0, 0, 0, 0, 1920, 1091, 0, 0, 0, 0, -2, 1092.01, 0, 0, 0, 0, -2, 2)
 }
 point_count = 5
 
@@ -29,9 +29,10 @@ mob_scene = ExtResource("2_a10ha")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -3.0
-offset_right = 483.0
-offset_bottom = 800.0
-texture = ExtResource("3_2mrqn")
+offset_right = 1919.0
+offset_bottom = 1081.0
+texture = ExtResource("3_522ei")
+expand_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("1_q0je5")]
 
@@ -45,14 +46,15 @@ wait_time = 2.0
 one_shot = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(240, 250)
+position = Vector2(960, 540)
 
 [node name="MobPath" type="Path2D" parent="."]
+scale = Vector2(1, 0.99)
 curve = SubResource("Curve2D_6iyqv")
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 position = Vector2(-2, 2)
-rotation = -0.00206611
+rotation = -0.00156087
 
 [node name="HUD" parent="." instance=ExtResource("4_gd1ba")]
 
