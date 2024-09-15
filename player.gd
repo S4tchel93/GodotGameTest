@@ -83,7 +83,6 @@ func _on_body_entered(body: Node2D) -> void:
 # Function that emits a signal to other modules when shooting action is performed
 func shoot():
 	if (canShoot && visible):
-		$shoot.play()
 		emit_signal("pewpew", bullet_scene, lastDirection, global_position)
 
 # Function that emits a signal to other modules when Nuke action is performed

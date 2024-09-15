@@ -5,13 +5,18 @@ var mob
 var score
 var difficulty = 0.0;
 var nukeAvailable = false
+static var master_volume
 
 const NUKE_AVAILABLE_SC0RE = 20
 const INCREASE_DIFFICULTY_SCORE = 15
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	master_volume = $HUD/OptionsMenu.get_master_volume()
+	$Music.volume_db = master_volume
+	$DeathSound.volume_db = master_volume
+	$NukeBeam.volume_db = master_volume
+	$shoot.volume_db = master_volume
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -85,6 +90,7 @@ func _on_player_pewpew(projectile: Variant, direction: Variant, pos: Variant) ->
 	bullet.set_direction(direction)
 	bullet.position = pos
 	add_child(bullet)
+	$shoot.play()
 
 func _on_player_boom(nuke: Variant, pos: Variant) -> void:
 	if(nukeAvailable):
