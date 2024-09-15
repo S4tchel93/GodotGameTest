@@ -23,6 +23,8 @@ func game_over() -> void:
 	$HUD.show_game_over()
 	$Music.stop()
 	$DeathSound.play()
+	nukeAvailable = false
+	$HUD.set_nuke_notif(nukeAvailable)
 
 func new_game():
 	difficulty = 0
