@@ -17,6 +17,7 @@ func _ready() -> void:
 	$DeathSound.volume_db = master_volume
 	$NukeBeam.volume_db = master_volume
 	$shoot.volume_db = master_volume
+	$HUD/OptionsMenuInGame.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

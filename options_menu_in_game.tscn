@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6wiy8b6h2r88"]
+[gd_scene load_steps=3 format=3 uid="uid://cklngihyperjg"]
 
-[ext_resource type="Script" path="res://options_menu.gd" id="1_c7l6e"]
-[ext_resource type="FontFile" uid="uid://uak3bgi3u3p2" path="res://fonts/Xolonium-Regular.ttf" id="1_mwbk5"]
+[ext_resource type="Script" path="res://options_menu_in_game.gd" id="1_h50yu"]
+[ext_resource type="FontFile" uid="uid://uak3bgi3u3p2" path="res://fonts/Xolonium-Regular.ttf" id="2_nmfc8"]
 
-[node name="OptionsMenu" type="Control"]
+[node name="OptionsMenuInGame" type="Control"]
 clip_children = 2
 layout_mode = 3
 anchors_preset = 15
@@ -11,19 +11,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_c7l6e")
+script = ExtResource("1_h50yu")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.5
+offset_top = -174.0
+offset_right = 154.5
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
 [node name="Volume" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_mwbk5")
+theme_override_fonts/font = ExtResource("2_nmfc8")
 theme_override_font_sizes/font_size = 64
 text = "VOLUME"
 
@@ -48,16 +57,23 @@ grow_horizontal = 0
 
 [node name="VideoButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_mwbk5")
+theme_override_fonts/font = ExtResource("2_nmfc8")
 theme_override_font_sizes/font_size = 64
 text = "VIDEO"
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_mwbk5")
+theme_override_fonts/font = ExtResource("2_nmfc8")
 theme_override_font_sizes/font_size = 64
 text = "BACK"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nmfc8")
+theme_override_font_sizes/font_size = 64
+text = "QUIT"
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VideoButton" to="." method="_on_video_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

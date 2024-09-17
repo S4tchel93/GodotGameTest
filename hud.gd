@@ -4,6 +4,7 @@ signal start_game
 const RED 	= Color(0xFF,0,0,0xFF)
 const WHITE = Color(0xFF,0xFF,0xFF,0xFF)
 static var color_index = 0
+var paused = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,7 +13,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_pressed("pause"):
+		pauseMenu()
 
 func show_message(text):
 	$Message.text = text
@@ -70,4 +72,14 @@ func _on_options_button_pressed() -> void:
 	$StartButton.hide()
 	$OptionsButton.hide()
 	$QuitButton.hide()
-	get_tree().change_scene_to_file("res://options_menu.tscn")
+	$OptionsMenu.show()
+
+func pauseMenu():
+	if !paused:
+		$OptionsMenuInGame.show()
+		Engine.time_scale = 0
+	else:
+		$OptionsMenuInGame.hide()
+		Engine.time_scale = 1
+	
+	paused = !paused
