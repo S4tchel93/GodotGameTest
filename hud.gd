@@ -4,6 +4,7 @@ signal start_game
 const RED 	= Color(0xFF,0,0,0xFF)
 const WHITE = Color(0xFF,0xFF,0xFF,0xFF)
 static var color_index = 0
+var game_started = false
 var paused = false
 
 # Called when the node enters the scene tree for the first time.
@@ -13,8 +14,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("pause"):
-		pauseMenu()
+	if Input.is_action_just_pressed("pause"):
+		if game_started:
+			pauseMenu()
 
 func show_message(text):
 	$Message.text = text
@@ -41,6 +43,7 @@ func _on_start_button_pressed() -> void:
 	$OptionsButton.hide()
 	$QuitButton.hide()
 	start_game.emit()
+	game_started = true
 
 func _on_message_timer_timeout() -> void:
 	$Message.hide()
@@ -67,19 +70,23 @@ func _on_nuke_pulse_timer_timeout() -> void:
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
-
 func _on_options_button_pressed() -> void:
 	$StartButton.hide()
 	$OptionsButton.hide()
 	$QuitButton.hide()
 	$OptionsMenu.show()
+	$Message.hide()
+
 
 func pauseMenu():
 	if !paused:
-		$OptionsMenuInGame.show()
+		$OptionsMenu.show()
 		Engine.time_scale = 0
 	else:
-		$OptionsMenuInGame.hide()
+		$OptionsMenu.hide()
 		Engine.time_scale = 1
 	
 	paused = !paused
+
+func get_game_started() -> bool:
+	return game_started
