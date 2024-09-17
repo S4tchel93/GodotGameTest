@@ -12,6 +12,7 @@ var screen_size
 var canShoot = true
 var lastDirection = Vector2(1.0, 0.0) #Normalized Right Horizontal direction
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size #Get Screen Size
