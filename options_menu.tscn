@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6wiy8b6h2r88"]
+[gd_scene load_steps=5 format=3 uid="uid://b6wiy8b6h2r88"]
 
 [ext_resource type="Script" path="res://options_menu.gd" id="1_c7l6e"]
 [ext_resource type="FontFile" uid="uid://uak3bgi3u3p2" path="res://fonts/Xolonium-Regular.ttf" id="1_mwbk5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4h0xh"]
+bg_color = Color(0.215902, 0.215902, 0.215902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hy0xl"]
+bg_color = Color(0.215686, 0.215686, 0.215686, 1)
 
 [node name="OptionsMenu" type="Control"]
 clip_children = 2
@@ -11,6 +17,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -205.565
+offset_right = -305.0
+offset_bottom = -205.565
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c7l6e")
@@ -24,17 +34,47 @@ offset_bottom = 348.0
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
+[node name="Controls" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_mwbk5")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_4h0xh")
+text = "CONTROLS"
+
+[node name="AimTypeButton" type="CheckButton" parent="MarginContainer/VBoxContainer/Controls"]
+layout_mode = 0
+offset_left = 435.0
+offset_top = -6.435
+offset_right = 479.0
+offset_bottom = 36.565
+scale = Vector2(2, 2)
+
+[node name="AimTypeLabel" type="Label" parent="MarginContainer/VBoxContainer/Controls"]
+offset_left = 546.0
+offset_top = 12.565
+offset_right = 842.0
+offset_bottom = 62.565
+theme_override_fonts/font = ExtResource("1_mwbk5")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_4h0xh")
+text = "Keyboard Aim"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [node name="Volume" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_mwbk5")
 theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_hy0xl")
 text = "VOLUME"
+horizontal_alignment = 1
 
 [node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/Volume"]
 layout_mode = 0
-offset_left = 347.0
+offset_left = 448.0
 offset_top = 28.0
-offset_right = 720.0
+offset_right = 848.0
 offset_bottom = 44.0
 min_value = -100.0
 max_value = 0.0
@@ -67,6 +107,7 @@ theme_override_fonts/font = ExtResource("1_mwbk5")
 theme_override_font_sizes/font_size = 64
 text = "QUIT"
 
+[connection signal="toggled" from="MarginContainer/VBoxContainer/Controls/AimTypeButton" to="." method="_on_aim_type_button_toggled"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VideoButton" to="." method="_on_video_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
