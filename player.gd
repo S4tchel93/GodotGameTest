@@ -11,7 +11,11 @@ signal boom(nuke,pos)
 var screen_size
 var canShoot = true
 var lastDirection = Vector2(1.0, 0.0) #Normalized Right Horizontal direction
-
+#Mouse Aim Variables
+var mousePosition: Vector2
+var shootDirection: Vector2
+#Aim Type (True = Mouse Aim / False = Keyboard Aim)
+static var aim_type : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -84,9 +88,21 @@ func _on_body_entered(body: Node2D) -> void:
 # Function that emits a signal to other modules when shooting action is performed
 func shoot():
 	if (canShoot && visible):
-		emit_signal("pewpew", bullet_scene, lastDirection, global_position)
+		#If aim type is true, get mouse position and calculate direction
+		if(aim_type == true):
+			mousePosition = get_global_mouse_position()
+			shootDirection = (mousePosition - global_position).normalized()
+			emit_signal("pewpew", bullet_scene, shootDirection, global_position)
+		else:
+			emit_signal("pewpew", bullet_scene, lastDirection, global_position)
 
 # Function that emits a signal to other modules when Nuke action is performed
 func nuke():
 	if (canShoot && visible):
-		emit_signal("boom", nuke_scene, global_position)
+		emit_signal("boom", nuke_scene, global_position)	
+
+# Function that sets the aim type for player
+# True = Mouse Aim / False = Keyboard Aim
+# @param control_aim: bool
+func set_aim_type(control_aim: bool):
+	aim_type = control_aim

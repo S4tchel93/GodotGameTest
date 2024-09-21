@@ -6,6 +6,8 @@ var score
 var difficulty = 0.0;
 var nukeAvailable = false
 static var master_volume
+#Aim Type (True = Mouse Aim / False = Keyboard Aim)
+static var aim_type : bool
 
 const NUKE_AVAILABLE_SC0RE = 20
 const INCREASE_DIFFICULTY_SCORE = 15
@@ -13,6 +15,8 @@ const INCREASE_DIFFICULTY_SCORE = 15
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	master_volume = $HUD/OptionsMenu.get_master_volume()
+	# Get startup aim type from options menu
+	aim_type = $HUD/OptionsMenu.get_aim_type()
 	$Music.volume_db = master_volume
 	$DeathSound.volume_db = master_volume
 	$NukeBeam.volume_db = master_volume
@@ -34,6 +38,8 @@ func game_over() -> void:
 func new_game():
 	difficulty = 0
 	score = 0
+	# Set current aim type to player
+	$Player.set_aim_type(aim_type)
 	$Player.start()
 	$StartTimer.start()
 	$HUD.update_score(score)
@@ -99,3 +105,12 @@ func _on_player_boom(nuke: Variant, pos: Variant) -> void:
 		$HUD.set_nuke_notif(nukeAvailable)
 		var special_bomb = nuke.instantiate()
 		add_child(special_bomb)
+
+# Called when changing aim type in the options menu by signal emitted
+# from options_menu.gd
+# true = Mouse Aim / false = Keyboard Aim
+# @param control_type: bool
+func _on_options_menu_aim_type_changed(control_type: Variant) -> void:
+	aim_type = control_type
+	# Setting aim type to player
+	$Player.set_aim_type(aim_type)
