@@ -106,3 +106,8 @@ func nuke():
 # @param control_aim: bool
 func set_aim_type(control_aim: bool):
 	aim_type = control_aim
+
+# Function that sets the player's ability to shoot
+# @param shootEnabled: bool, true if player can shoot, false if player can't shoot
+func set_player_can_shoot(shootEnabled: bool):
+	canShoot = shootEnabled

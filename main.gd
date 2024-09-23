@@ -114,3 +114,10 @@ func _on_options_menu_aim_type_changed(control_type: Variant) -> void:
 	aim_type = control_type
 	# Setting aim type to player
 	$Player.set_aim_type(aim_type)
+
+# Called when the game is paused or resumed by signal emitted from hud.gd
+# @param state: bool, true if game is paused, false if game is resumed
+func _on_hud_game_paused(state: bool) -> void:
+	#Send the pause signal to the player to disable
+	#therefore we send the complement of the pause state
+	$Player.set_player_can_shoot(!state)
