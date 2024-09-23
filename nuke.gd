@@ -1,5 +1,8 @@
 extends Area2D
 
+#Signal to notify that a mob was hit by the nuke
+signal nuke_hit_mob()
+
 func _ready():
 	#instantiate a nuke
 	$CollisionShape2D.disabled = false
@@ -15,6 +18,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("mobs"):
+		#Emit signal to notify to main.gd that a mob was hit by the nuke
+		emit_signal("nuke_hit_mob")
 		#Delete instance of the mob we just hit
 		body.queue_free()
 

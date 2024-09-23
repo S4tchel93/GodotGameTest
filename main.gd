@@ -75,8 +75,6 @@ func _on_mob_timer_timeout() -> void:
 	add_child(mob)
 
 func _on_score_timer_timeout() -> void:
-	score += 1
-	$HUD.update_score(score)
 	
 	#Set difficulty (mob speed) up every INCREASE_DIFFICULTY_SCORE score points
 	if(score % INCREASE_DIFFICULTY_SCORE == 0 && score > 0):
@@ -112,11 +110,23 @@ func _on_player_boom(nuke: Variant, pos: Variant) -> void:
 		nukeAvailable = false
 		$HUD.set_nuke_notif(nukeAvailable)
 		var special_bomb = nuke.instantiate()
+		#Connect signal to handle enemy hit when nuke is used
+		special_bomb.nuke_hit_mob.connect(_on_nuke_hit_mob)
 		add_child(special_bomb)
 
 # Function that handles the signal emitted when a projectile hits an enemy
 func _on_projectile_enemy_hit():
+	increment_score()
 	$Explosion.play()
+
+# Function that handles the signal emitted when a nuke hits an enemy
+func _on_nuke_hit_mob():
+	increment_score()
+
+# Function that increments the score and updates the HUD
+func increment_score():
+	score += 1
+	$HUD.update_score(score)
 
 # Called when changing aim type in the options menu by signal emitted
 # from options_menu.gd
