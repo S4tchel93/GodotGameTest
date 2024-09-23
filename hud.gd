@@ -1,6 +1,10 @@
 extends CanvasLayer
 
 signal start_game
+# Signal used to notify if the game is paused
+# @param state: bool, true if game is paused, false if game is resumed
+signal game_paused(state:bool)
+
 const RED 	= Color(0xFF,0,0,0xFF)
 const WHITE = Color(0xFF,0xFF,0xFF,0xFF)
 static var color_index = 0
@@ -82,9 +86,13 @@ func pauseMenu():
 	if !paused:
 		$OptionsMenu.show()
 		Engine.time_scale = 0
+		#Notify to main that the game is paused
+		emit_signal("game_paused", true)
 	else:
 		$OptionsMenu.hide()
 		Engine.time_scale = 1
+		#Notify to main that the game is resumed
+		emit_signal("game_paused", false)
 	
 	paused = !paused
 
