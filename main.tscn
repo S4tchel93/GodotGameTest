@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://ekty5hme78np"]
+[gd_scene load_steps=14 format=4 uid="uid://ekty5hme78np"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_3c2qw"]
 [ext_resource type="PackedScene" uid="uid://dl456nch27lpc" path="res://player.tscn" id="1_q0je5"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://ctd44dxkpx7tn" path="res://art/gameover.wav" id="6_h5chq"]
 [ext_resource type="AudioStream" uid="uid://bfhxfcxwkoep8" path="res://art/NukeBeam.wav" id="7_ufye1"]
 [ext_resource type="AudioStream" uid="uid://1ps6wf7eiovf" path="res://art/Pew Sound Effect.wav" id="9_8ootx"]
+[ext_resource type="AudioStream" uid="uid://cdtyr3rdeucfg" path="res://art/Explosion meme - Sound Effect.wav" id="10_efg4l"]
 
 [sub_resource type="Curve2D" id="Curve2D_6iyqv"]
 _data = {
@@ -75,6 +76,11 @@ stream = ExtResource("7_ufye1")
 [node name="shoot" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_8ootx")
 volume_db = -6.559
+max_polyphony = 10
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_efg4l")
+volume_db = -21.55
 max_polyphony = 10
 
 [connection signal="boom" from="Player" to="." method="_on_player_boom"]
