@@ -21,6 +21,8 @@ func _ready() -> void:
 	$DeathSound.volume_db = master_volume
 	$NukeBeam.volume_db = master_volume
 	$shoot.volume_db = master_volume
+	# Adding a negative offset to explosion, since it's too loud
+	$Explosion.volume_db = -9.0 + master_volume
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -91,8 +93,14 @@ func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
 	$ScoreTimer.start()
 
+# Function that handles the signal emitted when the player shoots
+# @param projectile: Variant, projectile to be instantiated
+# @param direction: Variant, direction of the player aiming
+# @param pos: Variant, position of the projectile
 func _on_player_pewpew(projectile: Variant, direction: Variant, pos: Variant) -> void:
 	var bullet = projectile.instantiate()
+	#Connect signal to handle enemy hit
+	bullet.projectile_enemy_hit.connect(_on_projectile_enemy_hit)
 	bullet.set_direction(direction)
 	bullet.position = pos
 	add_child(bullet)
@@ -105,6 +113,10 @@ func _on_player_boom(nuke: Variant, pos: Variant) -> void:
 		$HUD.set_nuke_notif(nukeAvailable)
 		var special_bomb = nuke.instantiate()
 		add_child(special_bomb)
+
+# Function that handles the signal emitted when a projectile hits an enemy
+func _on_projectile_enemy_hit():
+	$Explosion.play()
 
 # Called when changing aim type in the options menu by signal emitted
 # from options_menu.gd

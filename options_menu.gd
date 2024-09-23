@@ -2,7 +2,9 @@ extends Control
 
 # Signal emitted when the aim type is changed
 signal aim_type_changed(control_type)
-static var volume_db:float = 0.0
+# Master volume for game
+# -28 dB is equal to 65% volume
+static var volume_db:float = -28.0
 # Aim type (True = Mouse Aim / False = Keyboard Aim)
 static var aim_type:bool = false
 
@@ -30,6 +32,8 @@ func _on_volume_slider_value_changed(value: float) -> void:
 	$"../../DeathSound".volume_db = volume_db
 	$"../../NukeBeam".volume_db = volume_db
 	$"../../shoot".volume_db = volume_db
+	# Adding a negative offset to explosion, since it's too loud
+	$"../../Explosion".volume_db = -9.0 + volume_db
 
 func get_master_volume() -> float:
 	return volume_db

@@ -50,6 +50,7 @@ offset_bottom = 36.565
 scale = Vector2(2, 2)
 
 [node name="AimTypeLabel" type="Label" parent="MarginContainer/VBoxContainer/Controls"]
+layout_mode = 0
 offset_left = 546.0
 offset_top = 12.565
 offset_right = 842.0

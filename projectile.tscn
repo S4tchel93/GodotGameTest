@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1o02ict7qld1"]
+[gd_scene load_steps=4 format=3 uid="uid://d1o02ict7qld1"]
 
 [ext_resource type="Texture2D" uid="uid://d0h5rgv023tfx" path="res://art/Projectile.png" id="1_vfvuy"]
 [ext_resource type="Script" path="res://projectile.gd" id="1_xw02t"]
-[ext_resource type="AudioStream" uid="uid://cdtyr3rdeucfg" path="res://art/Explosion meme - Sound Effect.wav" id="3_7jv27"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8480h"]
 radius = 18.0278
@@ -17,11 +16,6 @@ texture = ExtResource("1_vfvuy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -1)
 shape = SubResource("CircleShape2D_8480h")
-
-[node name="Explosion" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_7jv27")
-volume_db = -21.55
-max_polyphony = 10
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="enemy_hit" from="." to="." method="_on_enemy_hit"]
