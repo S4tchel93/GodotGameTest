@@ -29,7 +29,6 @@ func _process(delta: float) -> void:
 	pass
 
 func game_over() -> void:
-	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	$Music.stop()
@@ -74,22 +73,8 @@ func _on_mob_timer_timeout() -> void:
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
 
-func _on_score_timer_timeout() -> void:
-	
-	#Set difficulty (mob speed) up every INCREASE_DIFFICULTY_SCORE score points
-	if(score % INCREASE_DIFFICULTY_SCORE == 0 && score > 0):
-		difficulty += 100.0
-		print("current difficulty: " + str(difficulty/100.0))
-		
-	#Set Nuke Available after player gets sums up a NUKE_AVAILABLE_SC0RE score
-	if(score % NUKE_AVAILABLE_SC0RE == 0 && score > 0 && nukeAvailable == false):
-		nukeAvailable = true
-		$HUD.set_nuke_notif(nukeAvailable)
-		print("Nuke Available: " + str(nukeAvailable))
-
 func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
-	$ScoreTimer.start()
 
 # Function that handles the signal emitted when the player shoots
 # @param projectile: Variant, projectile to be instantiated
@@ -123,9 +108,12 @@ func _on_projectile_enemy_hit():
 func _on_nuke_hit_mob():
 	increment_score()
 
-# Function that increments the score and updates the HUD
+# Function that increments the score, updates the HUD
+# and checks for gameplay changes based on score
 func increment_score():
 	score += 1
+	check_difficulty()
+	check_nuke_available()
 	$HUD.update_score(score)
 
 # Called when changing aim type in the options menu by signal emitted
@@ -143,3 +131,20 @@ func _on_hud_game_paused(state: bool) -> void:
 	#Send the pause signal to the player to disable
 	#therefore we send the complement of the pause state
 	$Player.set_player_can_shoot(!state)
+
+# Function that checks if the player has reached a certain score
+# to increase the difficulty of the game
+func check_difficulty():
+	#Set difficulty (mob speed) up every INCREASE_DIFFICULTY_SCORE score points
+	if(score % INCREASE_DIFFICULTY_SCORE == 0 && score > 0):
+		difficulty += 100.0
+		print("current difficulty: " + str(difficulty/100.0))
+
+# Function that checks if the player has reached a certain score
+# to make the nuke available
+func check_nuke_available():
+	#Set Nuke Available after player gets sums up a NUKE_AVAILABLE_SC0RE score
+	if(score % NUKE_AVAILABLE_SC0RE == 0 && score > 0 && nukeAvailable == false):
+		nukeAvailable = true
+		$HUD.set_nuke_notif(nukeAvailable)
+		print("Nuke Available: " + str(nukeAvailable))
